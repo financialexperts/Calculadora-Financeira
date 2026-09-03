@@ -18,22 +18,8 @@
     if (s.indexOf(",") > -1) s = s.replace(/0+$/, "").replace(/,$/, "");
     return s + " %";
   }
-  // Mesma ideia, mas com no máximo 2 casas — usado na taxa equivalente ao ano.
-  function pct2(i) {
-    return fmtNum.format(i * 100).replace(/,00$/, "") + " %";
-  }
-
-  function mesesLabel(n) {
-    return plain(n) + (n === 1 ? " mês" : " meses");
-  }
-  // "13 anos e 7 meses" — a leitura humana do número de períodos
-  function anosMeses(n) {
-    var total = Math.round(n);
-    var anos = Math.floor(total / 12), meses = total % 12;
-    if (anos === 0) return meses + (meses === 1 ? " mês" : " meses");
-    var s = anos + (anos === 1 ? " ano" : " anos");
-    if (meses > 0) s += " e " + meses + (meses === 1 ? " mês" : " meses");
-    return s;
+  function periodosLabel(n) {
+    return plain(n) + (n === 1 ? " período" : " períodos");
   }
 
   /* ============ máscara e validação ============ */
@@ -89,7 +75,7 @@
   }
 
   var MONEY = { example: "10.000,00", max: 1e12, maxLabel: "R$ 1 trilhão" };
-  var PERIODS = { example: "240", max: 1200, maxLabel: "1.200 meses" };
+  var PERIODS = { example: "240", max: 1200, maxLabel: "1.200 períodos" };
   var RATE = { example: "0,5", min: 0, max: 100, maxLabel: "100 %" };
 
   /* ============ estado de "campo tocado" ============ */
@@ -149,8 +135,8 @@
         warn: true,
         label: "Não é preciso depositar nada",
         value: money(-pmt),
-        note: "O valor inicial de <b>" + money(pv) + "</b> sozinho já ultrapassa a meta. Em <b>" + mesesLabel(n) +
-              "</b> dá até para <b>retirar</b> esse valor por mês e ainda terminar com <b>" + money(fv) + "</b>."
+        note: "O valor inicial de <b>" + money(pv) + "</b> sozinho já ultrapassa a meta. Em <b>" + periodosLabel(n) +
+              "</b> dá até para <b>retirar</b> esse valor por período e ainda terminar com <b>" + money(fv) + "</b>."
       });
     }
 
@@ -158,8 +144,8 @@
     render("c1", {
       label: "Parcela por período",
       value: money(pmt),
-      note: "Depositando <b>" + money(pmt) + "</b> por mês durante <b>" + mesesLabel(n) + "</b> (" + anosMeses(n) +
-            ")" + (pv > 0 ? ", partindo de <b>" + money(pv) + "</b>," : "") + " você chega a <b>" + money(fv) + "</b>.",
+      note: "Depositando <b>" + money(pmt) + "</b> por período durante <b>" + periodosLabel(n) +
+            "</b>" + (pv > 0 ? ", partindo de <b>" + money(pv) + "</b>," : "") + " você chega a <b>" + money(fv) + "</b>.",
       split: { proprio: s.proprio, juros: s.juros, total: fv }
     });
   }
@@ -182,8 +168,8 @@
       label: "Valor final",
       value: money(fv),
       note: (pv > 0 ? "Partindo de <b>" + money(pv) + "</b> e depositando " : "Depositando ") +
-            "<b>" + money(pmt) + "</b> por mês durante <b>" + mesesLabel(n) + "</b> (" + anosMeses(n) +
-            "), você termina com <b>" + money(fv) + "</b>.",
+            "<b>" + money(pmt) + "</b> por período durante <b>" + periodosLabel(n) +
+            "</b>, você termina com <b>" + money(fv) + "</b>.",
       split: { proprio: s.proprio, juros: s.juros, total: fv }
     });
   }
@@ -206,8 +192,8 @@
         warn: true,
         label: "Não é preciso valor inicial",
         value: "R$ 0,00",
-        note: "Só com os depósitos de <b>" + money(pmt) + "</b> por mês você já passa de <b>" + money(fv) +
-              "</b> em <b>" + mesesLabel(n) + "</b>. Não precisa começar com nada."
+        note: "Só com os depósitos de <b>" + money(pmt) + "</b> por período você já passa de <b>" + money(fv) +
+              "</b> em <b>" + periodosLabel(n) + "</b>. Não precisa começar com nada."
       });
     }
 
@@ -215,8 +201,8 @@
     render("c3", {
       label: "Valor inicial necessário",
       value: money(pv),
-      note: "Com <b>" + money(pv) + "</b> hoje" + (pmt > 0 ? " mais <b>" + money(pmt) + "</b> por mês" : "") +
-            ", você chega a <b>" + money(fv) + "</b> em <b>" + mesesLabel(n) + "</b> (" + anosMeses(n) + ").",
+      note: "Com <b>" + money(pv) + "</b> hoje" + (pmt > 0 ? " mais <b>" + money(pmt) + "</b> por período" : "") +
+            ", você chega a <b>" + money(fv) + "</b> em <b>" + periodosLabel(n) + "</b>.",
       split: { proprio: s.proprio, juros: s.juros, total: fv }
     });
   }
@@ -229,13 +215,13 @@
     var pv = readOptional("c4-pv", MONEY);
     var pmt = readOptional("c4-pmt", MONEY);
 
-    if (n === null || fv === null || pv === null || pmt === null) return blank("c4", "Taxa de juros ao mês", "0 %");
+    if (n === null || fv === null || pv === null || pmt === null) return blank("c4", "Taxa de juros por período", "0 %");
 
     if (pv <= 0 && pmt <= 0) {
       return render("c4", {
         warn: true, label: "Faltam dados",
         value: "—",
-        note: "Preencha o valor inicial, a parcela mensal, ou os dois — sem dinheiro entrando não existe taxa a calcular."
+        note: "Preencha o valor inicial, a parcela por período, ou os dois — sem dinheiro entrando não existe taxa a calcular."
       });
     }
 
@@ -244,22 +230,21 @@
       return render("c4", {
         warn: true, label: "Sem taxa possível",
         value: "—",
-        note: "Não existe taxa entre −100 % e 100 % ao mês que leve esses valores a <b>" + money(fv) + "</b> em <b>" + mesesLabel(n) + "</b>."
+        note: "Não existe taxa entre −100 % e 100 % por período que leve esses valores a <b>" + money(fv) + "</b> em <b>" + periodosLabel(n) + "</b>."
       });
     }
 
-    var anual = Math.pow(1 + i, 12) - 1;
     var s = Fi.split(pv, pmt, n, fv);
 
     render("c4", {
       warn: i < 0,
-      label: i < 0 ? "Taxa ao mês (prejuízo)" : "Taxa de juros ao mês",
+      label: i < 0 ? "Taxa por período (prejuízo)" : "Taxa de juros por período",
       value: pct(i),
-      note: "Equivale a <b>" + pct2(anual) + " ao ano</b>. É a taxa que transforma " +
+      note: "É a taxa que transforma " +
             (pv > 0 ? "<b>" + money(pv) + "</b> hoje" : "") +
             (pv > 0 && pmt > 0 ? " mais " : "") +
-            (pmt > 0 ? "<b>" + money(pmt) + "</b> por mês" : "") +
-            " em <b>" + money(fv) + "</b> ao longo de <b>" + mesesLabel(n) + "</b>.",
+            (pmt > 0 ? "<b>" + money(pmt) + "</b> por período" : "") +
+            " em <b>" + money(fv) + "</b> ao longo de <b>" + periodosLabel(n) + "</b>.",
       split: i < 0 ? null : { proprio: s.proprio, juros: s.juros, total: fv }
     });
   }
@@ -272,7 +257,7 @@
     var pv = readOptional("c5-pv", MONEY);
     var pmt = readField("c5-pmt", MONEY, t("c5-pmt"));
 
-    if (i === null || fv === null || pv === null || pmt === null) return blank("c5", "Número de períodos", "0 meses");
+    if (i === null || fv === null || pv === null || pmt === null) return blank("c5", "Número de períodos", "0 períodos");
 
     i = i / 100;
     var n = Fi.periods(i, pv, pmt, fv);
@@ -281,13 +266,13 @@
       return render("c5", {
         warn: true, label: "Prazo impossível",
         value: "—",
-        note: "Com <b>" + money(pmt) + "</b> por mês a <b>" + pct(i) + " ao mês</b>, o valor de <b>" + money(fv) + "</b> nunca é alcançado."
+        note: "Com <b>" + money(pmt) + "</b> por período a <b>" + pct(i) + " por período</b>, o valor de <b>" + money(fv) + "</b> nunca é alcançado."
       });
     }
     if (n === 0) {
       return render("c5", {
         warn: true, label: "Você já chegou lá",
-        value: "0 meses",
+        value: "0 períodos",
         note: "O valor inicial de <b>" + money(pv) + "</b> já é igual ou maior que <b>" + money(fv) + "</b>."
       });
     }
@@ -295,8 +280,8 @@
     var s = Fi.split(pv, pmt, n, fv);
     render("c5", {
       label: "Número de períodos",
-      value: mesesLabel(n),
-      note: "São <b>" + anosMeses(n) + "</b> depositando <b>" + money(pmt) + "</b> por mês" +
+      value: periodosLabel(n),
+      note: "Depositando <b>" + money(pmt) + "</b> por período" +
             (pv > 0 ? ", partindo de <b>" + money(pv) + "</b>," : "") + " até chegar a <b>" + money(fv) + "</b>.",
       split: { proprio: s.proprio, juros: s.juros, total: fv }
     });

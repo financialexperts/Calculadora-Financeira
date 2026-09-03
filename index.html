@@ -69,7 +69,7 @@
             <label for="c1-taxa">Taxa de juros</label>
             <div class="input" id="c1-taxa-box">
               <input id="c1-taxa" type="text" inputmode="decimal" placeholder="0,62" autocomplete="off" data-mask="rate">
-              <span class="input__affix">% ao mês</span>
+              <span class="input__affix">% por período</span>
             </div>
             <p class="error" role="alert" aria-live="polite" id="c1-taxa-err"></p>
           </div>
@@ -77,7 +77,7 @@
             <label for="c1-n">Número de períodos</label>
             <div class="input" id="c1-n-box">
               <input id="c1-n" type="text" inputmode="decimal" placeholder="240" autocomplete="off" data-mask="periods">
-              <span class="input__affix">meses</span>
+              <span class="input__affix">períodos</span>
             </div>
             <p class="error" role="alert" aria-live="polite" id="c1-n-err"></p>
           </div>
@@ -136,7 +136,7 @@
             <label for="c2-taxa">Taxa de juros</label>
             <div class="input" id="c2-taxa-box">
               <input id="c2-taxa" type="text" inputmode="decimal" placeholder="0,5" autocomplete="off" data-mask="rate">
-              <span class="input__affix">% ao mês</span>
+              <span class="input__affix">% por período</span>
             </div>
             <p class="error" role="alert" aria-live="polite" id="c2-taxa-err"></p>
           </div>
@@ -144,7 +144,7 @@
             <label for="c2-n">Número de períodos</label>
             <div class="input" id="c2-n-box">
               <input id="c2-n" type="text" inputmode="decimal" placeholder="60" autocomplete="off" data-mask="periods">
-              <span class="input__affix">meses</span>
+              <span class="input__affix">períodos</span>
             </div>
             <p class="error" role="alert" aria-live="polite" id="c2-n-err"></p>
           </div>
@@ -157,7 +157,7 @@
             <p class="error" role="alert" aria-live="polite" id="c2-pv-err"></p>
           </div>
           <div class="field">
-            <label for="c2-pmt">Parcela mensal</label>
+            <label for="c2-pmt">Parcela por período</label>
             <div class="input" id="c2-pmt-box">
               <span class="input__affix">R$</span>
               <input id="c2-pmt" type="text" inputmode="decimal" placeholder="200,00" autocomplete="off" data-mask="money">
@@ -203,7 +203,7 @@
             <label for="c3-taxa">Taxa de juros</label>
             <div class="input" id="c3-taxa-box">
               <input id="c3-taxa" type="text" inputmode="decimal" placeholder="0,8" autocomplete="off" data-mask="rate">
-              <span class="input__affix">% ao mês</span>
+              <span class="input__affix">% por período</span>
             </div>
             <p class="error" role="alert" aria-live="polite" id="c3-taxa-err"></p>
           </div>
@@ -211,12 +211,12 @@
             <label for="c3-n">Número de períodos</label>
             <div class="input" id="c3-n-box">
               <input id="c3-n" type="text" inputmode="decimal" placeholder="12" autocomplete="off" data-mask="periods">
-              <span class="input__affix">meses</span>
+              <span class="input__affix">períodos</span>
             </div>
             <p class="error" role="alert" aria-live="polite" id="c3-n-err"></p>
           </div>
           <div class="field">
-            <label for="c3-pmt">Parcela mensal <span class="opt">opcional</span></label>
+            <label for="c3-pmt">Parcela por período <span class="opt">opcional</span></label>
             <div class="input" id="c3-pmt-box">
               <span class="input__affix">R$</span>
               <input id="c3-pmt" type="text" inputmode="decimal" placeholder="359,00" autocomplete="off" data-mask="money">
@@ -270,7 +270,7 @@
             <label for="c4-n">Número de períodos</label>
             <div class="input" id="c4-n-box">
               <input id="c4-n" type="text" inputmode="decimal" placeholder="12" autocomplete="off" data-mask="periods">
-              <span class="input__affix">meses</span>
+              <span class="input__affix">períodos</span>
             </div>
             <p class="error" role="alert" aria-live="polite" id="c4-n-err"></p>
           </div>
@@ -291,7 +291,7 @@
             <p class="error" role="alert" aria-live="polite" id="c4-pv-err"></p>
           </div>
           <div class="field">
-            <label for="c4-pmt">Parcela mensal <span class="opt">opcional</span></label>
+            <label for="c4-pmt">Parcela por período <span class="opt">opcional</span></label>
             <div class="input" id="c4-pmt-box">
               <span class="input__affix">R$</span>
               <input id="c4-pmt" type="text" inputmode="decimal" placeholder="500,00" autocomplete="off" data-mask="money">
@@ -307,7 +307,7 @@
     </form>
 
     <section class="result card is-empty" id="c4-result" aria-live="polite">
-      <p class="result__label" id="c4-label">Taxa de juros ao mês</p>
+      <p class="result__label" id="c4-label">Taxa de juros por período</p>
       <p class="result__big" id="c4-value">0 %</p>
       <div class="meter" id="c4-meter" hidden>
         <div class="meter__bar">
@@ -329,7 +329,7 @@
       <div class="card__head">
         <p class="card__kicker">Calculadora 05</p>
         <h2 class="card__title">Número de períodos</h2>
-        <p class="card__sub">Quantos meses você leva, depositando esse valor, até alcançar o valor final.</p>
+        <p class="card__sub">Quantos períodos você leva, depositando esse valor, até alcançar o valor final.</p>
       </div>
       <div class="card__body">
         <div class="fields">
@@ -337,7 +337,7 @@
             <label for="c5-taxa">Taxa de juros</label>
             <div class="input" id="c5-taxa-box">
               <input id="c5-taxa" type="text" inputmode="decimal" placeholder="0,5" autocomplete="off" data-mask="rate">
-              <span class="input__affix">% ao mês</span>
+              <span class="input__affix">% por período</span>
             </div>
             <p class="error" role="alert" aria-live="polite" id="c5-taxa-err"></p>
           </div>
@@ -358,7 +358,7 @@
             <p class="error" role="alert" aria-live="polite" id="c5-pv-err"></p>
           </div>
           <div class="field">
-            <label for="c5-pmt">Parcela mensal</label>
+            <label for="c5-pmt">Parcela por período</label>
             <div class="input" id="c5-pmt-box">
               <span class="input__affix">R$</span>
               <input id="c5-pmt" type="text" inputmode="decimal" placeholder="4.000,00" autocomplete="off" data-mask="money">
@@ -375,7 +375,7 @@
 
     <section class="result card is-empty" id="c5-result" aria-live="polite">
       <p class="result__label" id="c5-label">Número de períodos</p>
-      <p class="result__big" id="c5-value">0 meses</p>
+      <p class="result__big" id="c5-value">0 períodos</p>
       <div class="meter" id="c5-meter" hidden>
         <div class="meter__bar">
           <span class="meter__seg meter__seg--base" id="c5-seg-a"></span>

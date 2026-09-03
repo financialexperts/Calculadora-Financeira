@@ -22,8 +22,8 @@ Cada calculadora isola uma das cinco variáveis:
 | 04 | Taxa de juros (`i`) | períodos, valor final, valor inicial (opc.), parcela (opc.) | `TAXA` / `RATE` |
 | 05 | Número de períodos (`n`) | taxa, valor final, valor inicial (opc.), parcela | `NPER` |
 
-- `i` = taxa por período (a interface usa mês)
-- `n` = número de períodos (meses)
+- `i` = taxa por período
+- `n` = número de períodos
 - A taxa 04 é resolvida por bisseção, porque não tem fórmula fechada. `f(i) = VF(i) − VF_alvo` é crescente em `i` quando o valor inicial e a parcela são positivos, então a bisseção converge sempre, sem chute inicial.
 
 ## Convenção de sinais
@@ -32,7 +32,7 @@ A planilha usa a convenção do Excel, em que dinheiro que sai é negativo — p
 
 Quando o resultado "dá negativo" na matemática, a calculadora explica em vez de mostrar um número negativo:
 
-- **01** — se o valor inicial sozinho já ultrapassa a meta, o painel muda para *"Não é preciso depositar nada"* e mostra quanto dá para **retirar** por mês.
+- **01** — se o valor inicial sozinho já ultrapassa a meta, o painel muda para *"Não é preciso depositar nada"* e mostra quanto dá para **retirar** por período.
 - **03** — se os depósitos sozinhos já passam do valor final, mostra *"Não é preciso valor inicial"*.
 - **05** — se o valor final nunca é alcançado, mostra *"Prazo impossível"*.
 
@@ -45,9 +45,9 @@ Rodando os mesmos números das células:
 | 01 Parcela | 0,62 % · 240 · R$ 250.000 · R$ 1.000.000 | R$ 185,54 (a retirar) | 185,5371 |
 | 02 Valor final | 0,5 % · 60 · R$ 100.000 · R$ 200 | R$ 148.839,02 | 148.839,0214 |
 | 03 Valor inicial | 0,8 % · 12 · R$ 359 · R$ 1.000.000 | R$ 904.718,98 | 904.718,9804 |
-| 05 N.º de períodos | 0,5 % · R$ 0 · R$ 4.000 · R$ 1.000.000 | 162,59 meses | 162,5911713 |
+| 05 N.º de períodos | 0,5 % · R$ 0 · R$ 4.000 · R$ 1.000.000 | 162,59 períodos | 162,5911713 |
 
-**A calculadora 04 é a única que difere da planilha**, e de propósito. A célula `RATE(C13,C16,C15,C14,,1%)` mistura sinais (`VP = −10.000`, `PMT = +500`, `VF = +20.000`), ou seja, trata a parcela como dinheiro *saindo* enquanto o valor inicial entra — daí os 9,7477 % ao mês. Com a convenção única daqui (os R$ 10.000 e as 12 parcelas de R$ 500 são tudo dinheiro que você põe, somando R$ 16.000 para virar R$ 20.000), a taxa é **2,322 % ao mês**. Conferido pela volta: `VF(2,322 %, 12, 10.000, 500) = 20.000,00` exato.
+**A calculadora 04 é a única que difere da planilha**, e de propósito. A célula `RATE(C13,C16,C15,C14,,1%)` mistura sinais (`VP = −10.000`, `PMT = +500`, `VF = +20.000`), ou seja, trata a parcela como dinheiro *saindo* enquanto o valor inicial entra — daí os 9,7477 % por período. Com a convenção única daqui (os R$ 10.000 e as 12 parcelas de R$ 500 são tudo dinheiro que você põe, somando R$ 16.000 para virar R$ 20.000), a taxa é **2,322 % por período**. Conferido pela volta: `VF(2,322 %, 12, 10.000, 500) = 20.000,00` exato.
 
 ## A linha de cores
 
