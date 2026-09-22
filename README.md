@@ -73,13 +73,6 @@ backend/
 
 Os scripts carregam em ordem (`finance.js` → `format.js` → `app.js`) como globais simples (`Finance`, `Format`), sem bundler. `finance.js` não depende de nada — dá para reaproveitar em Node ou em outro front-end.
 
-## Como publicar no GitHub Pages
-
-1. Suba a pasta inteira (`index.html`, `frontend/`, `backend/`, `README.md`) na raiz do repositório.
-2. Repositório → **Settings** → **Pages**.
-3. Em *Source*, escolha **Deploy from a branch** → branch `main` → pasta `/ (root)` → **Save**.
-4. Em cerca de 1 minuto o site fica no ar.
-
 ## Detalhes técnicos
 
 - HTML + CSS + JavaScript puro, sem build nem framework.
