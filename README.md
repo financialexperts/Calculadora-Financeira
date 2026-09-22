@@ -1,8 +1,16 @@
 # Calculadora Financeira — 5 funções
 
-As cinco funções da planilha `Calculadora Financeira.xlsx`, cada uma com seu próprio painel no seletor do topo. Sem dependências e sem build: é só abrir o `index.html`.
+As cinco funções da planilha `Calculadora Financeira.xlsx`, cada uma com seu próprio painel no seletor do topo. Sem build: é `index.html` + Supabase (só para o login).
 
 Segue o mesmo padrão visual do *Simulador de Aposentadoria*, mas enxuto: um seletor, só os campos da calculadora, e embaixo o resultado em escala grande com a linha de cores.
+
+## Login
+
+A calculadora usa **o mesmo login do Fluxo de Caixa**: mesmo projeto Supabase e mesma tela de entrar / criar conta / esqueci a senha. Quem já tem conta no Fluxo de Caixa entra aqui com o mesmo e-mail e senha, e quem cria conta aqui já pode usar o Fluxo de Caixa (lá ele passa pela configuração inicial normalmente).
+
+- `frontend/js/config.js`, `supabaseClient.js` e `auth.js` são cópias idênticas dos arquivos do Fluxo de Caixa. Se mudar um deles lá, copie para cá também.
+- A calculadora não grava nada no banco. Ela só lê `profiles.full_name` para mostrar o nome no topo, e o cadastro grava esse nome em `profiles`, exatamente como no Fluxo de Caixa.
+- **Recuperação de senha:** o link do e-mail volta para a página onde o pedido foi feito. No painel do Supabase, em *Authentication → URL Configuration → Redirect URLs*, a URL da calculadora precisa estar na lista, senão o Supabase manda o aluno para a *Site URL* (o Fluxo de Caixa).
 
 ## As cinco calculadoras
 
@@ -61,21 +69,25 @@ Quando o resultado é um dos casos explicativos acima, a barra some e o card int
 ## Estrutura de arquivos
 
 ```
-index.html                 marcação das 5 calculadoras e do seletor
+index.html                 telas de login e marcação das 5 calculadoras e do seletor
 frontend/
   css/styles.css           todo o estilo visual
+  js/config.js             URL e chave do Supabase (a mesma do Fluxo de Caixa)
+  js/supabaseClient.js     inicializa o cliente Supabase
   js/format.js             formatação de número/moeda e parsing de input
-  js/app.js                validação, eventos, abas, tema — liga tudo à página
+  js/auth.js               tela de entrar / criar conta / esqueci a senha
+  js/app.js                validação, eventos, abas, tema — liga as calculadoras à página
+  js/session.js            roteamento por sessão: carregando, login ou calculadora
   img/                     logos e favicon
 backend/
   js/finance.js            as 5 funções puras (sem DOM)
 ```
 
-Os scripts carregam em ordem (`finance.js` → `format.js` → `app.js`) como globais simples (`Finance`, `Format`), sem bundler. `finance.js` não depende de nada — dá para reaproveitar em Node ou em outro front-end.
+Os scripts carregam em ordem (`finance.js` → `config.js` → `supabaseClient.js` → `format.js` → `auth.js` → `app.js` → `session.js`) como globais simples (`Finance`, `Format`, `DB`, `AuthView`), sem bundler. `finance.js` não depende de nada — dá para reaproveitar em Node ou em outro front-end.
 
 ## Detalhes técnicos
 
-- HTML + CSS + JavaScript puro, sem build nem framework.
+- HTML + CSS + JavaScript puro, sem build nem framework (o `supabase-js` vem do CDN).
 - Entrada aceita formato brasileiro (`1.500,50`) e também `1500.50`.
 - Calcula enquanto você digita; `Calcular` força a validação de todos os campos.
 - Validação de campos, mensagens de erro com `role="alert"`, navegação por teclado no seletor (setas ← →).

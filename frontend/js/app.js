@@ -299,7 +299,7 @@
     });
   });
 
-  document.querySelectorAll("form").forEach(function (form) {
+  document.querySelectorAll("#view-calc form").forEach(function (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var fn = calcs[form.id];
@@ -323,7 +323,8 @@
   });
 
   /* ============ seletor de calculadora ============ */
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  // Só as abas da calculadora — as de Entrar/Criar conta são do auth.js.
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('#calc-tabs [role="tab"]'));
   function selectTab(tab) {
     tabs.forEach(function (t) {
       var on = t === tab;
