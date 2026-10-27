@@ -24,8 +24,8 @@ Cada calculadora isola uma das cinco variáveis:
 
 | # | Resolve | Entradas | Função equivalente no Excel |
 |---|---------|----------|-----------------------------|
-| 01 | Parcela (`PMT`) | taxa, períodos, valor inicial (opc.), valor final | `PGTO` / `PMT` |
-| 02 | Valor final (`VF`) | taxa, períodos, valor inicial (opc.), parcela | `VF` / `FV` |
+| 01 | Valor final (`VF`) | taxa, períodos, valor inicial (opc.), parcela | `VF` / `FV` |
+| 02 | Parcela (`PMT`) | taxa, períodos, valor inicial (opc.), valor final | `PGTO` / `PMT` |
 | 03 | Valor inicial (`VP`) | taxa, períodos, parcela (opc.), valor final | `VP` / `PV` |
 | 04 | Taxa de juros (`i`) | períodos, valor final, valor inicial (opc.), parcela (opc.) | `TAXA` / `RATE` |
 | 05 | Número de períodos (`n`) | taxa, valor final, valor inicial (opc.), parcela | `NPER` |
@@ -40,7 +40,7 @@ A planilha usa a convenção do Excel, em que dinheiro que sai é negativo — p
 
 Quando o resultado "dá negativo" na matemática, a calculadora explica em vez de mostrar um número negativo:
 
-- **01** — se o valor inicial sozinho já ultrapassa a meta, o painel muda para *"Não é preciso depositar nada"* e mostra quanto dá para **retirar** por período.
+- **02** — se o valor inicial sozinho já ultrapassa a meta, o painel muda para *"Não é preciso depositar nada"* e mostra quanto dá para **retirar** por período.
 - **03** — se os depósitos sozinhos já passam do valor final, mostra *"Não é preciso valor inicial"*.
 - **05** — se o valor final nunca é alcançado, mostra *"Prazo impossível"*.
 
@@ -50,8 +50,8 @@ Rodando os mesmos números das células:
 
 | Calculadora | Entradas | Resultado | Planilha |
 |-------------|----------|-----------|----------|
-| 01 Parcela | 0,62 % · 240 · R$ 250.000 · R$ 1.000.000 | R$ 185,54 (a retirar) | 185,5371 |
-| 02 Valor final | 0,5 % · 60 · R$ 100.000 · R$ 200 | R$ 148.839,02 | 148.839,0214 |
+| 01 Valor final | 0,5 % · 60 · R$ 100.000 · R$ 200 | R$ 148.839,02 | 148.839,0214 |
+| 02 Parcela | 0,62 % · 240 · R$ 250.000 · R$ 1.000.000 | R$ 185,54 (a retirar) | 185,5371 |
 | 03 Valor inicial | 0,8 % · 12 · R$ 359 · R$ 1.000.000 | R$ 904.718,98 | 904.718,9804 |
 | 05 N.º de períodos | 0,5 % · R$ 0 · R$ 4.000 · R$ 1.000.000 | 162,59 períodos | 162,5911713 |
 

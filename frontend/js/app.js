@@ -117,21 +117,45 @@
     render(p, { empty: true, label: label, value: zero, note: "Preencha os campos acima para ver o resultado." });
   }
 
-  /* ============ 01 — Parcela ============ */
+  /* ============ 01 — Valor final ============ */
   function calc1(force) {
     var t = function (id) { return force || touched[id]; };
     var i = readField("c1-taxa", RATE, t("c1-taxa"));
     var n = readField("c1-n", PERIODS, t("c1-n"));
     var pv = readOptional("c1-pv", MONEY);
-    var fv = readField("c1-fv", MONEY, t("c1-fv"));
+    var pmt = readField("c1-pmt", MONEY, t("c1-pmt"));
 
-    if (i === null || n === null || pv === null || fv === null) return blank("c1", "Parcela por período", "R$ 0,00");
+    if (i === null || n === null || pv === null || pmt === null) return blank("c1", "Valor final", "R$ 0,00");
+
+    i = i / 100;
+    var fv = Fi.futureValue(i, n, pv, pmt);
+    var s = Fi.split(pv, pmt, n, fv);
+
+    render("c1", {
+      label: "Valor final",
+      value: money(fv),
+      note: (pv > 0 ? "Partindo de <b>" + money(pv) + "</b> e depositando " : "Depositando ") +
+            "<b>" + money(pmt) + "</b> por período durante <b>" + periodosLabel(n) +
+            "</b>, você termina com <b>" + money(fv) + "</b>.",
+      split: { proprio: s.proprio, juros: s.juros, total: fv }
+    });
+  }
+
+  /* ============ 02 — Parcela ============ */
+  function calc2(force) {
+    var t = function (id) { return force || touched[id]; };
+    var i = readField("c2-taxa", RATE, t("c2-taxa"));
+    var n = readField("c2-n", PERIODS, t("c2-n"));
+    var pv = readOptional("c2-pv", MONEY);
+    var fv = readField("c2-fv", MONEY, t("c2-fv"));
+
+    if (i === null || n === null || pv === null || fv === null) return blank("c2", "Parcela por período", "R$ 0,00");
 
     i = i / 100;
     var pmt = Fi.payment(i, n, pv, fv);
 
     if (pmt < 0) {
-      return render("c1", {
+      return render("c2", {
         warn: true,
         label: "Não é preciso depositar nada",
         value: money(-pmt),
@@ -141,35 +165,11 @@
     }
 
     var s = Fi.split(pv, pmt, n, fv);
-    render("c1", {
+    render("c2", {
       label: "Parcela por período",
       value: money(pmt),
       note: "Depositando <b>" + money(pmt) + "</b> por período durante <b>" + periodosLabel(n) +
             "</b>" + (pv > 0 ? ", partindo de <b>" + money(pv) + "</b>," : "") + " você chega a <b>" + money(fv) + "</b>.",
-      split: { proprio: s.proprio, juros: s.juros, total: fv }
-    });
-  }
-
-  /* ============ 02 — Valor final ============ */
-  function calc2(force) {
-    var t = function (id) { return force || touched[id]; };
-    var i = readField("c2-taxa", RATE, t("c2-taxa"));
-    var n = readField("c2-n", PERIODS, t("c2-n"));
-    var pv = readOptional("c2-pv", MONEY);
-    var pmt = readField("c2-pmt", MONEY, t("c2-pmt"));
-
-    if (i === null || n === null || pv === null || pmt === null) return blank("c2", "Valor final", "R$ 0,00");
-
-    i = i / 100;
-    var fv = Fi.futureValue(i, n, pv, pmt);
-    var s = Fi.split(pv, pmt, n, fv);
-
-    render("c2", {
-      label: "Valor final",
-      value: money(fv),
-      note: (pv > 0 ? "Partindo de <b>" + money(pv) + "</b> e depositando " : "Depositando ") +
-            "<b>" + money(pmt) + "</b> por período durante <b>" + periodosLabel(n) +
-            "</b>, você termina com <b>" + money(fv) + "</b>.",
       split: { proprio: s.proprio, juros: s.juros, total: fv }
     });
   }

@@ -5,10 +5,10 @@
 <meta name="app-version" content="1">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Calculadora Financeira — 5 funções</title>
-<meta name="description" content="Cinco calculadoras financeiras: parcela, valor final, valor inicial, taxa de juros e número de períodos.">
+<meta name="description" content="Cinco calculadoras financeiras: valor final, parcela, valor inicial, taxa de juros e número de períodos.">
 <meta name="color-scheme" content="light dark">
 <meta property="og:title" content="Calculadora Financeira — 5 funções">
-<meta property="og:description" content="Parcela, valor final, valor inicial, taxa de juros e número de períodos.">
+<meta property="og:description" content="Valor final, parcela, valor inicial, taxa de juros e número de períodos.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/png" href="frontend/img/favicon.png">
 <link rel="apple-touch-icon" href="frontend/img/favicon.png">
@@ -157,10 +157,10 @@
 
   <div class="tabs" id="calc-tabs" role="tablist" aria-label="Escolha a calculadora">
     <button class="tab glass" role="tab" id="tab-1" aria-controls="p1" aria-selected="true" type="button">
-      <span class="tab__n">01</span><span class="tab__t">Parcela</span>
+      <span class="tab__n">01</span><span class="tab__t">Valor final</span>
     </button>
     <button class="tab glass" role="tab" id="tab-2" aria-controls="p2" aria-selected="false" tabindex="-1" type="button">
-      <span class="tab__n">02</span><span class="tab__t">Valor final</span>
+      <span class="tab__n">02</span><span class="tab__t">Parcela</span>
     </button>
     <button class="tab glass" role="tab" id="tab-3" aria-controls="p3" aria-selected="false" tabindex="-1" type="button">
       <span class="tab__n">03</span><span class="tab__t">Valor inicial</span>
@@ -173,20 +173,20 @@
     </button>
   </div>
 
-  <!-- ============ 01 — PARCELA ============ -->
+  <!-- ============ 01 — VALOR FINAL ============ -->
   <section class="panel" id="p1" role="tabpanel" aria-labelledby="tab-1" tabindex="0">
     <form class="card" id="form1" novalidate>
       <div class="card__head">
         <p class="card__kicker">Calculadora 01</p>
-        <h2 class="card__title">Parcela</h2>
-        <p class="card__sub">Quanto depositar por período para sair do valor inicial e chegar ao valor final.</p>
+        <h2 class="card__title">Valor final</h2>
+        <p class="card__sub">Quanto o seu dinheiro vira no fim, somando valor inicial, depósitos e juros.</p>
       </div>
       <div class="card__body">
         <div class="fields">
           <div class="field">
             <label for="c1-taxa">Taxa de juros</label>
             <div class="input" id="c1-taxa-box">
-              <input id="c1-taxa" type="text" inputmode="decimal" placeholder="0,62" autocomplete="off" data-mask="rate">
+              <input id="c1-taxa" type="text" inputmode="decimal" placeholder="0,5" autocomplete="off" data-mask="rate">
               <span class="input__affix">% por período</span>
             </div>
             <p class="error" role="alert" aria-live="polite" id="c1-taxa-err"></p>
@@ -194,7 +194,7 @@
           <div class="field">
             <label for="c1-n">Número de períodos</label>
             <div class="input" id="c1-n-box">
-              <input id="c1-n" type="text" inputmode="decimal" placeholder="240" autocomplete="off" data-mask="periods">
+              <input id="c1-n" type="text" inputmode="decimal" placeholder="60" autocomplete="off" data-mask="periods">
               <span class="input__affix">períodos</span>
             </div>
             <p class="error" role="alert" aria-live="polite" id="c1-n-err"></p>
@@ -203,17 +203,17 @@
             <label for="c1-pv">Valor inicial <span class="opt">opcional</span></label>
             <div class="input" id="c1-pv-box">
               <span class="input__affix">R$</span>
-              <input id="c1-pv" type="text" inputmode="decimal" placeholder="250.000,00" autocomplete="off" data-mask="money">
+              <input id="c1-pv" type="text" inputmode="decimal" placeholder="100.000,00" autocomplete="off" data-mask="money">
             </div>
             <p class="error" role="alert" aria-live="polite" id="c1-pv-err"></p>
           </div>
           <div class="field">
-            <label for="c1-fv">Valor final</label>
-            <div class="input" id="c1-fv-box">
+            <label for="c1-pmt">Parcela por período</label>
+            <div class="input" id="c1-pmt-box">
               <span class="input__affix">R$</span>
-              <input id="c1-fv" type="text" inputmode="decimal" placeholder="1.000.000,00" autocomplete="off" data-mask="money">
+              <input id="c1-pmt" type="text" inputmode="decimal" placeholder="200,00" autocomplete="off" data-mask="money">
             </div>
-            <p class="error" role="alert" aria-live="polite" id="c1-fv-err"></p>
+            <p class="error" role="alert" aria-live="polite" id="c1-pmt-err"></p>
           </div>
         </div>
         <div class="actions">
@@ -224,7 +224,7 @@
     </form>
 
     <section class="result card is-empty" id="c1-result" aria-live="polite">
-      <p class="result__label" id="c1-label">Parcela por período</p>
+      <p class="result__label" id="c1-label">Valor final</p>
       <p class="result__big" id="c1-value">R$ 0,00</p>
       <div class="meter" id="c1-meter" hidden>
         <div class="meter__bar">
@@ -240,20 +240,20 @@
     </section>
   </section>
 
-  <!-- ============ 02 — VALOR FINAL ============ -->
+  <!-- ============ 02 — PARCELA ============ -->
   <section class="panel" id="p2" role="tabpanel" aria-labelledby="tab-2" tabindex="0" hidden>
     <form class="card" id="form2" novalidate>
       <div class="card__head">
         <p class="card__kicker">Calculadora 02</p>
-        <h2 class="card__title">Valor final</h2>
-        <p class="card__sub">Quanto o seu dinheiro vira no fim, somando valor inicial, depósitos e juros.</p>
+        <h2 class="card__title">Parcela</h2>
+        <p class="card__sub">Quanto depositar por período para sair do valor inicial e chegar ao valor final.</p>
       </div>
       <div class="card__body">
         <div class="fields">
           <div class="field">
             <label for="c2-taxa">Taxa de juros</label>
             <div class="input" id="c2-taxa-box">
-              <input id="c2-taxa" type="text" inputmode="decimal" placeholder="0,5" autocomplete="off" data-mask="rate">
+              <input id="c2-taxa" type="text" inputmode="decimal" placeholder="0,62" autocomplete="off" data-mask="rate">
               <span class="input__affix">% por período</span>
             </div>
             <p class="error" role="alert" aria-live="polite" id="c2-taxa-err"></p>
@@ -261,7 +261,7 @@
           <div class="field">
             <label for="c2-n">Número de períodos</label>
             <div class="input" id="c2-n-box">
-              <input id="c2-n" type="text" inputmode="decimal" placeholder="60" autocomplete="off" data-mask="periods">
+              <input id="c2-n" type="text" inputmode="decimal" placeholder="240" autocomplete="off" data-mask="periods">
               <span class="input__affix">períodos</span>
             </div>
             <p class="error" role="alert" aria-live="polite" id="c2-n-err"></p>
@@ -270,17 +270,17 @@
             <label for="c2-pv">Valor inicial <span class="opt">opcional</span></label>
             <div class="input" id="c2-pv-box">
               <span class="input__affix">R$</span>
-              <input id="c2-pv" type="text" inputmode="decimal" placeholder="100.000,00" autocomplete="off" data-mask="money">
+              <input id="c2-pv" type="text" inputmode="decimal" placeholder="250.000,00" autocomplete="off" data-mask="money">
             </div>
             <p class="error" role="alert" aria-live="polite" id="c2-pv-err"></p>
           </div>
           <div class="field">
-            <label for="c2-pmt">Parcela por período</label>
-            <div class="input" id="c2-pmt-box">
+            <label for="c2-fv">Valor final</label>
+            <div class="input" id="c2-fv-box">
               <span class="input__affix">R$</span>
-              <input id="c2-pmt" type="text" inputmode="decimal" placeholder="200,00" autocomplete="off" data-mask="money">
+              <input id="c2-fv" type="text" inputmode="decimal" placeholder="1.000.000,00" autocomplete="off" data-mask="money">
             </div>
-            <p class="error" role="alert" aria-live="polite" id="c2-pmt-err"></p>
+            <p class="error" role="alert" aria-live="polite" id="c2-fv-err"></p>
           </div>
         </div>
         <div class="actions">
@@ -291,7 +291,7 @@
     </form>
 
     <section class="result card is-empty" id="c2-result" aria-live="polite">
-      <p class="result__label" id="c2-label">Valor final</p>
+      <p class="result__label" id="c2-label">Parcela por período</p>
       <p class="result__big" id="c2-value">R$ 0,00</p>
       <div class="meter" id="c2-meter" hidden>
         <div class="meter__bar">
