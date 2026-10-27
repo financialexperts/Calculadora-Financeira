@@ -8,9 +8,6 @@
   var fmtPct = Format.fmtPct;
   var parseNumber = Format.parseNumber;
 
-  /* ============ formatação dos resultados ============ */
-
-  // "1.234,50" sem o ",00" quando o número é redondo
   function plain(v) { return fmtNum.format(v).replace(/,00$/, ""); }
   // Percentual sem zeros à toa: "0,62 %", "6,17 %", "12 %"
   function pct(i) {
@@ -22,7 +19,6 @@
     return plain(n) + (n === 1 ? " período" : " períodos");
   }
 
-  /* ============ máscara e validação ============ */
 
   function formatOnBlur(el) {
     var kind = el.getAttribute("data-mask");
@@ -48,8 +44,6 @@
     }
   }
 
-  // Lê um campo obrigatório. Devolve null e marca o erro quando inválido.
-  // touched = false -> campo ainda vazio não acusa erro
   function readField(id, opts, touched) {
     var raw = document.getElementById(id).value.trim();
     if (!raw) { setError(id, touched ? "Preencha este campo." : ""); return null; }
