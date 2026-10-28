@@ -56,7 +56,6 @@
     return v;
   }
 
-  // Campo opcional: vazio vale 0 e nunca acusa "preencha este campo".
   function readOptional(id, opts) {
     var raw = document.getElementById(id).value.trim();
     if (!raw) { setError(id, ""); return 0; }
@@ -72,14 +71,9 @@
   var PERIODS = { example: "240", max: 1200, maxLabel: "1.200 períodos" };
   var RATE = { example: "0,5", min: 0, max: 100, maxLabel: "100 %" };
 
-  /* ============ estado de "campo tocado" ============ */
   var touched = {};
 
-  /* ============ bloco de resultado ============ */
 
-  // Desenha o resultado e a linha de cores. `split` (opcional) é
-  // { proprio, juros, total } — a mesma proporção alimenta a barra e a faixa
-  // colorida no topo do card, para as duas contarem a mesma história.
   function render(p, out) {
     var card = document.getElementById(p + "-result");
     var meter = document.getElementById(p + "-meter");
@@ -111,7 +105,6 @@
     render(p, { empty: true, label: label, value: zero, note: "Preencha os campos acima para ver o resultado." });
   }
 
-  /* ============ 01 — Valor final ============ */
   function calc1(force) {
     var t = function (id) { return force || touched[id]; };
     var i = readField("c1-taxa", RATE, t("c1-taxa"));
@@ -135,7 +128,6 @@
     });
   }
 
-  /* ============ 02 — Parcela ============ */
   function calc2(force) {
     var t = function (id) { return force || touched[id]; };
     var i = readField("c2-taxa", RATE, t("c2-taxa"));
@@ -168,7 +160,6 @@
     });
   }
 
-  /* ============ 03 — Valor inicial ============ */
   function calc3(force) {
     var t = function (id) { return force || touched[id]; };
     var i = readField("c3-taxa", RATE, t("c3-taxa"));
@@ -201,7 +192,6 @@
     });
   }
 
-  /* ============ 04 — Taxa de juros ============ */
   function calc4(force) {
     var t = function (id) { return force || touched[id]; };
     var n = readField("c4-n", PERIODS, t("c4-n"));
@@ -243,7 +233,6 @@
     });
   }
 
-  /* ============ 05 — Número de períodos ============ */
   function calc5(force) {
     var t = function (id) { return force || touched[id]; };
     var i = readField("c5-taxa", RATE, t("c5-taxa"));
@@ -284,7 +273,6 @@
   var calcs = { form1: calc1, form2: calc2, form3: calc3, form4: calc4, form5: calc5 };
   function runAll(force) { calc1(force); calc2(force); calc3(force); calc4(force); calc5(force); }
 
-  /* ============ eventos ============ */
   document.querySelectorAll("input[data-mask]").forEach(function (el) {
     el.addEventListener("input", function () { touched[el.id] = true; runAll(false); });
     el.addEventListener("blur", function () { touched[el.id] = true; formatOnBlur(el); runAll(false); });
@@ -316,8 +304,6 @@
     });
   });
 
-  /* ============ seletor de calculadora ============ */
-  // Só as abas da calculadora — as de Entrar/Criar conta são do auth.js.
   var tabs = Array.prototype.slice.call(document.querySelectorAll('#calc-tabs [role="tab"]'));
   function selectTab(tab) {
     tabs.forEach(function (t) {
@@ -338,7 +324,6 @@
     });
   });
 
-  /* ============ tema ============ */
   var root = document.documentElement;
   var stored = null;
   try { stored = localStorage.getItem("tema"); } catch (err) { stored = null; }
@@ -353,7 +338,6 @@
     try { localStorage.setItem("tema", next); } catch (err) {}
   });
 
-  /* ============ liquid glass: brilho que segue o ponteiro ============ */
   document.querySelectorAll(".glass").forEach(function (el) {
     el.addEventListener("pointermove", function (e) {
       var r = el.getBoundingClientRect();
@@ -362,6 +346,5 @@
     });
   });
 
-  /* ============ início ============ */
   runAll(false);
 })();
