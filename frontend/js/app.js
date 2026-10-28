@@ -122,8 +122,8 @@
       label: "Valor final",
       value: money(fv),
       note: (pv > 0 ? "Partindo de <b>" + money(pv) + "</b> e depositando " : "Depositando ") +
-            "<b>" + money(pmt) + "</b> por período durante <b>" + periodosLabel(n) +
-            "</b>, você termina com <b>" + money(fv) + "</b>.",
+        "<b>" + money(pmt) + "</b> por período durante <b>" + periodosLabel(n) +
+        "</b>, você termina com <b>" + money(fv) + "</b>.",
       split: { proprio: s.proprio, juros: s.juros, total: fv }
     });
   }
@@ -146,7 +146,7 @@
         label: "Não é preciso depositar nada",
         value: money(-pmt),
         note: "O valor inicial de <b>" + money(pv) + "</b> sozinho já ultrapassa a meta. Em <b>" + periodosLabel(n) +
-              "</b> dá até para <b>retirar</b> esse valor por período e ainda terminar com <b>" + money(fv) + "</b>."
+          "</b> dá até para <b>retirar</b> esse valor por período e ainda terminar com <b>" + money(fv) + "</b>."
       });
     }
 
@@ -155,7 +155,7 @@
       label: "Parcela por período",
       value: money(pmt),
       note: "Depositando <b>" + money(pmt) + "</b> por período durante <b>" + periodosLabel(n) +
-            "</b>" + (pv > 0 ? ", partindo de <b>" + money(pv) + "</b>," : "") + " você chega a <b>" + money(fv) + "</b>.",
+        "</b>" + (pv > 0 ? ", partindo de <b>" + money(pv) + "</b>," : "") + " você chega a <b>" + money(fv) + "</b>.",
       split: { proprio: s.proprio, juros: s.juros, total: fv }
     });
   }
@@ -178,7 +178,7 @@
         label: "Não é preciso valor inicial",
         value: "R$ 0,00",
         note: "Só com os depósitos de <b>" + money(pmt) + "</b> por período você já passa de <b>" + money(fv) +
-              "</b> em <b>" + periodosLabel(n) + "</b>. Não precisa começar com nada."
+          "</b> em <b>" + periodosLabel(n) + "</b>. Não precisa começar com nada."
       });
     }
 
@@ -187,7 +187,7 @@
       label: "Valor inicial necessário",
       value: money(pv),
       note: "Com <b>" + money(pv) + "</b> hoje" + (pmt > 0 ? " mais <b>" + money(pmt) + "</b> por período" : "") +
-            ", você chega a <b>" + money(fv) + "</b> em <b>" + periodosLabel(n) + "</b>.",
+        ", você chega a <b>" + money(fv) + "</b> em <b>" + periodosLabel(n) + "</b>.",
       split: { proprio: s.proprio, juros: s.juros, total: fv }
     });
   }
@@ -225,10 +225,10 @@
       label: i < 0 ? "Taxa por período (prejuízo)" : "Taxa de juros por período",
       value: pct(i),
       note: "É a taxa que transforma " +
-            (pv > 0 ? "<b>" + money(pv) + "</b> hoje" : "") +
-            (pv > 0 && pmt > 0 ? " mais " : "") +
-            (pmt > 0 ? "<b>" + money(pmt) + "</b> por período" : "") +
-            " em <b>" + money(fv) + "</b> ao longo de <b>" + periodosLabel(n) + "</b>.",
+        (pv > 0 ? "<b>" + money(pv) + "</b> hoje" : "") +
+        (pv > 0 && pmt > 0 ? " mais " : "") +
+        (pmt > 0 ? "<b>" + money(pmt) + "</b> por período" : "") +
+        " em <b>" + money(fv) + "</b> ao longo de <b>" + periodosLabel(n) + "</b>.",
       split: i < 0 ? null : { proprio: s.proprio, juros: s.juros, total: fv }
     });
   }
@@ -265,7 +265,7 @@
       label: "Número de períodos",
       value: periodosLabel(n),
       note: "Depositando <b>" + money(pmt) + "</b> por período" +
-            (pv > 0 ? ", partindo de <b>" + money(pv) + "</b>," : "") + " até chegar a <b>" + money(fv) + "</b>.",
+        (pv > 0 ? ", partindo de <b>" + money(pv) + "</b>," : "") + " até chegar a <b>" + money(fv) + "</b>.",
       split: { proprio: s.proprio, juros: s.juros, total: fv }
     });
   }
@@ -335,7 +335,7 @@
   document.getElementById("tema").addEventListener("click", function () {
     var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
     root.setAttribute("data-theme", next);
-    try { localStorage.setItem("tema", next); } catch (err) {}
+    try { localStorage.setItem("tema", next); } catch (err) { }
   });
 
   document.querySelectorAll(".glass").forEach(function (el) {
