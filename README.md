@@ -8,9 +8,10 @@ Segue o mesmo padrão visual do *Simulador de Aposentadoria*, mas enxuto: um sel
 
 A calculadora usa **o mesmo login do Fluxo de Caixa**: mesmo projeto Supabase e mesma tela de entrar / criar conta / esqueci a senha. Quem já tem conta no Fluxo de Caixa entra aqui com o mesmo e-mail e senha, e quem cria conta aqui já pode usar o Fluxo de Caixa (lá ele passa pela configuração inicial normalmente).
 
-- `frontend/js/config.js`, `supabaseClient.js` e `auth.js` são cópias idênticas dos arquivos do Fluxo de Caixa. Se mudar um deles lá, copie para cá também.
+- `frontend/js/config.js`, `supabaseClient.js`, `auth.js` e `google-auth.js` são cópias idênticas dos arquivos do Fluxo de Caixa. Se mudar um deles lá, copie para cá também.
 - A calculadora não grava nada no banco. Ela só lê `profiles.full_name` para mostrar o nome no topo, e o cadastro grava esse nome em `profiles`, exatamente como no Fluxo de Caixa.
 - **Recuperação de senha:** o link do e-mail volta para a página onde o pedido foi feito. No painel do Supabase, em *Authentication → URL Configuration → Redirect URLs*, a URL da calculadora precisa estar na lista, senão o Supabase manda o aluno para a *Site URL* (o Fluxo de Caixa).
+- **Continuar com o Google:** o botão no alto de entrar e de criar conta entra com a conta do Google (quem ainda não tem conta ganha uma na hora, com o nome do Google). Ele volta para a calculadora pelo mesmo caminho da recuperação de senha, então depende da mesma lista de *Redirect URLs*. Além disso, o Google precisa estar ligado em **Authentication → Sign In / Providers → Google**, com o Client ID e o Client Secret de um cliente OAuth do Google Cloud (que tem que ter `https://xorqsuqjmvkyzgagdxfz.supabase.co/auth/v1/callback` em *URIs de redirecionamento autorizados*). Enquanto ele estiver desligado, o botão só avisa que o login com o Google ainda não está disponível.
 
 ## As cinco calculadoras
 
@@ -76,6 +77,7 @@ frontend/
   js/supabaseClient.js     inicializa o cliente Supabase
   js/format.js             formatação de número/moeda e parsing de input
   js/auth.js               tela de entrar / criar conta / esqueci a senha
+  js/google-auth.js        botão "Continuar com o Google" (o mesmo do Fluxo de Caixa)
   js/app.js                validação, eventos, abas, tema — liga as calculadoras à página
   js/session.js            roteamento por sessão: carregando, login ou calculadora
   img/                     logos e favicon
@@ -83,7 +85,7 @@ backend/
   js/finance.js            as 5 funções puras (sem DOM)
 ```
 
-Os scripts carregam em ordem (`finance.js` → `config.js` → `supabaseClient.js` → `format.js` → `auth.js` → `app.js` → `session.js`) como globais simples (`Finance`, `Format`, `DB`, `AuthView`), sem bundler. `finance.js` não depende de nada — dá para reaproveitar em Node ou em outro front-end.
+Os scripts carregam em ordem (`finance.js` → `config.js` → `supabaseClient.js` → `format.js` → `auth.js` → `google-auth.js` → `app.js` → `session.js`) como globais simples (`Finance`, `Format`, `DB`, `AuthView`), sem bundler. `finance.js` não depende de nada — dá para reaproveitar em Node ou em outro front-end.
 
 ## Detalhes técnicos
 
