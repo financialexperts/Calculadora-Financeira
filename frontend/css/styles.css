@@ -166,7 +166,7 @@ input{font:inherit}
 .input input{flex:1;min-width:0;border:0;background:transparent;padding:13px 0;font-family:var(--ff-mono);font-size:16px;font-weight:500;color:var(--ink);text-align:right}
 .input input:focus{outline:none}
 .input input::placeholder{color:var(--muted);opacity:.6}
-.error{display:none;align-items:center;gap:5px;color:var(--danger);font-size:12.5px;margin-top:6px}
+.error{display:none;align-items:center;gap:5px;color:var(--danger);font-size:12.5px;margin-top:6px;overflow-wrap:anywhere}
 .error.is-on{display:flex}
 .error::before{content:"⚠";font-size:11px}
 .actions{display:flex;gap:10px;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
